@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 const connectDb = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/manager');
+    await mongoose.connect('mongodb://localhost:27017/booksapi');
     logger('Connect successfully!!', 'log');
   } catch (error) {
     console.log(error);
