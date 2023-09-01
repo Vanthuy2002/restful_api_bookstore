@@ -27,5 +27,28 @@ const createBook = async (req: Request, res: Response) => {
   }
 };
 
-const bookController = { getAllBooks, createBook };
+const getDetailsBook = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const book = await BooksModel.findById(id).populate('authorId');
+    res.status(statusCodes.OK).json({ book });
+    return book;
+  } catch (error) {
+    res.status(statusCodes.NOT_FOUND).json({ error });
+  }
+};
+
+const updateBooks = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const book = await BooksModel.findById(id);
+    await book?.updateOne({ $set: req.body });
+    res.status(statusCodes.OK).json({ message: 'Update book successsfully!!' });
+    return book;
+  } catch (error) {
+    res.status(statusCodes.SERVER).json(error);
+  }
+};
+
+const bookController = { getAllBooks, createBook, getDetailsBook, updateBooks };
 export default bookController;

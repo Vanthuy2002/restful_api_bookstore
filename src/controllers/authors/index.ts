@@ -19,12 +19,38 @@ const createAuthor = async (req: Request, res: Response) => {
     res.status(statusCodes.CREATED).json({ author: newAuthor });
     return newAuthor;
   } catch (error) {
-    res.status(statusCodes.SERVER).json({ error });
+    res.status(statusCodes.SERVER).json(error);
+  }
+};
+
+// GET AN AUTHOR
+const getDetailsAuthor = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const author = await AuthorsModel.findById(id).populate('booksId');
+    res.status(statusCodes.OK).json({ author });
+    return author;
+  } catch (error) {
+    res.status(statusCodes.NOT_FOUND).json(error);
+  }
+};
+
+// update an author
+const updateAuthor = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const author = await AuthorsModel.findByIdAndUpdate(id, { $set: req.body });
+    res.status(statusCodes.OK).json({ message: 'Update author successfully!!' });
+    return author;
+  } catch (error) {
+    res.status(statusCodes.SERVER).json(error);
   }
 };
 
 const authorControllers = {
   getAllAuthor,
-  createAuthor
+  createAuthor,
+  getDetailsAuthor,
+  updateAuthor
 };
 export default authorControllers;
