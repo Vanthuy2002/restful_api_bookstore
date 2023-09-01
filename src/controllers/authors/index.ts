@@ -1,6 +1,6 @@
 import { statusCodes } from '@/utils/contants';
 import { Request, Response } from 'express';
-import { AuthorsModel } from '@/Model';
+import { AuthorsModel, BooksModel } from '@/Model';
 
 const getAllAuthor = async (req: Request, res: Response) => {
   try {
@@ -50,6 +50,7 @@ const updateAuthor = async (req: Request, res: Response) => {
 const deleteAuthor = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
+    await BooksModel.updateMany({ authorId: id }, { $pull: { authorId: id } });
     await AuthorsModel.findByIdAndDelete(id);
     res.status(statusCodes.OK).json({ message: 'Delete author successfully' });
   } catch (error) {

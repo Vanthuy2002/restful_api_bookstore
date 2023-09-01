@@ -53,6 +53,7 @@ const updateBooks = async (req: Request, res: Response) => {
 const deleteBooks = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
+    await AuthorsModel.updateMany({ booksId: id }, { $pull: { booksId: id } });
     await BooksModel.findByIdAndDelete(id);
     res.status(statusCodes.OK).json({ message: 'Delete book successsfully!!' });
   } catch (error) {
