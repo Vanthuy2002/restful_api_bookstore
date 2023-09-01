@@ -5,7 +5,7 @@ import { AuthorsModel } from '@/Model';
 const getAllAuthor = async (req: Request, res: Response) => {
   try {
     const allAuthor = await AuthorsModel.find().exec();
-    res.status(statusCodes.OK).json({ authors: allAuthor });
+    res.status(statusCodes.OK).json({ size: allAuthor.length, authors: allAuthor });
     return allAuthor;
   } catch (error) {
     res.status(statusCodes.BAD_REQUEST).json({ error });
@@ -47,10 +47,21 @@ const updateAuthor = async (req: Request, res: Response) => {
   }
 };
 
+const deleteAuthor = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    await AuthorsModel.findByIdAndDelete(id);
+    res.status(statusCodes.OK).json({ message: 'Delete author successfully' });
+  } catch (error) {
+    res.status(statusCodes.SERVER).json(error);
+  }
+};
+
 const authorControllers = {
   getAllAuthor,
   createAuthor,
   getDetailsAuthor,
-  updateAuthor
+  updateAuthor,
+  deleteAuthor
 };
 export default authorControllers;

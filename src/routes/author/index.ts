@@ -15,4 +15,7 @@ authorRouter.get('/:id', authorControllers.getDetailsAuthor);
 // PATCH -> update an author
 authorRouter.patch('/:id', authorControllers.updateAuthor);
 
+// DELETE -> delete author
+authorRouter.delete('/:id', authorControllers.deleteAuthor);
+
 export default authorRouter;

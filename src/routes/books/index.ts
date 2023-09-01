@@ -15,4 +15,7 @@ bookRouter.get('/:id', bookController.getDetailsBook);
 // PATCH -> update a book
 bookRouter.patch('/:id', bookController.updateBooks);
 
+// DELETE -> delete a book
+bookRouter.delete('/:id', bookController.deleteBooks);
+
 export default bookRouter;

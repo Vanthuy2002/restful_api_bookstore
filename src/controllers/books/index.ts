@@ -5,7 +5,7 @@ import { statusCodes } from '@/utils/contants';
 const getAllBooks = async (req: Request, res: Response) => {
   try {
     const books = await BooksModel.find().exec();
-    res.status(statusCodes.OK).json({ books });
+    res.status(statusCodes.OK).json({ size: books.length, books });
     return books;
   } catch (error) {
     res.status(statusCodes.NOT_FOUND).json({ error });
@@ -50,5 +50,15 @@ const updateBooks = async (req: Request, res: Response) => {
   }
 };
 
-const bookController = { getAllBooks, createBook, getDetailsBook, updateBooks };
+const deleteBooks = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    await BooksModel.findByIdAndDelete(id);
+    res.status(statusCodes.OK).json({ message: 'Delete book successsfully!!' });
+  } catch (error) {
+    res.status(statusCodes.SERVER).json(error);
+  }
+};
+
+const bookController = { getAllBooks, createBook, getDetailsBook, updateBooks, deleteBooks };
 export default bookController;
