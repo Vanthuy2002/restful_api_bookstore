@@ -3,7 +3,9 @@ interface BooksType {
   price: number;
   publish: string;
   genres: string[];
-  author: AuthorTypes;
+  authorId: {
+    _id: string;
+  };
 }
 
 interface AuthorTypes {
@@ -11,9 +13,5 @@ interface AuthorTypes {
   age: number;
   birth: number;
   booksCount: number;
-  books: Omit<BooksType, 'author'>[];
-}
-
-interface JsonProps {
-  message: string;
+  booksId: [];
 }

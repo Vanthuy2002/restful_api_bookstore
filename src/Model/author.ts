@@ -17,7 +17,7 @@ const schema = new mongoose.Schema<AuthorTypes>(
     booksCount: {
       type: Number
     },
-    books: [
+    booksId: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Book'
