@@ -13,3 +13,7 @@ interface AuthorTypes {
   booksCount: number;
   books: Omit<BooksType, 'author'>[];
 }
+
+interface JsonProps {
+  message: string;
+}
